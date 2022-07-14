@@ -1,0 +1,45 @@
+import random
+
+class Student:
+    def __init__(self, identifier, first_name, last_name):
+        self.identifier = identifier
+        self.first_name = first_name
+        self.last_name = last_name
+        self.grades = []
+
+    def get_full_name(self):
+        return self.first_name + ' ' + self.last_name
+
+    def add_grade (self, grade):
+        self.grades.append(grade) 
+
+    def get_gpa(self):
+        return sum(self.grades) / len(self.grades)
+
+class BloomTechStudent(Student):
+    def __init__(self, identifier, first_name, last_name, prgram):
+        super().__init__(identifier, first_name, last_name)
+        self.program = prgram
+        self.flex_count = 0
+    
+    def flex(self):
+        print('student has flexed this class')
+        self.flex_count += 1
+
+    def __str__(self):
+        return f"{self.get_full_name()}, {self.identifier}, {self.program}"
+
+def student_generator():
+    first_names = ['jon', 'mark', 'tim', 'greg', 'alyssa', 'sally', 'bob']
+    last_names = ['marinez', 'snider', 'owen', 'brown', 'garcia', 'torres', 'mcdonald']
+    first_name = random.choice(first_names)
+    last_name = random.choice(last_names)
+    ident = random.randrange(1000, 10000)
+    student = BloomTechStudent(ident, first_name, last_name, 'data science')
+    return student
+
+def generate_students():
+    result = []
+    for _ in range(30):
+        result.append(student_generator())
+    return result
